@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 声明命名空间，用于引用该映射器中的 SQL 语句 -->
+<mapper namespace="com.emp.mapper.EmployeeMapper">
+    <!--根据ID查询员工信息 -->
+    <select id="employeeInfoById" parameterType="int" resultType="com.emp.pojo.Employee">
+        select * from employee where id = #{id}
+    </select>
+    <!--新增员工信息 -->
+    <insert id="addEmployeeInfo" parameterType="com.emp.pojo.Employee" keyProperty="id" useGeneratedKeys="true">
+        insert into employee(id, name, age, position) values(#{id}, #{name}, #{age}, #{position})
+    </insert>
+    <!--根据ID修改员工信息 -->
+    <update id="updateEmployeeInfoById" parameterType="com.emp.pojo.Employee">
+        update employee set name = #{name}, age = #{age}, position = #{position} where id = #{id}
+    </update>
+    <!--根据ID删除员工信息 -->
+    <delete id="deleteEmployeeInfoById" parameterType="int">
+        delete from employee where id = #{id}
+    </delete>
+</mapper>
