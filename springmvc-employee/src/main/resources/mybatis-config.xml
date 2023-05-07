@@ -1,20 +1,30 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE configuration
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- MyBatis配置文件 -->
 <configuration>
+    <!-- 引入外部属性文件 -->
     <properties resource="db.properties"/>
+    <settings>
+        <!-- 关闭缓存 -->
+        <setting name="cacheEnabled" value="false"/>
+    </settings>
+    <!-- 配置环境 -->
     <environments default="development">
         <environment id="development">
-            <transactionManager type="JDBC"></transactionManager>
+            <!-- 配置事务管理器 -->
+            <transactionManager type="JDBC"/>
+            <!-- 配置数据源 -->
             <dataSource type="POOLED">
-                <property name="driver" value="${mysql.driver}"></property>
-                <property name="url" value="${mysql.url}"></property>
-                <property name="username" value="${mysql.username}"></property>
-                <property name="password" value="${mysql.password}"></property>
+                <property name="driver" value="${mysql.driver}"/>
+                <property name="url" value="${mysql.url}"/>
+                <property name="username" value="${mysql.username}"/>
+                <property name="password" value="${mysql.password}"/>
             </dataSource>
         </environment>
     </environments>
+    <!-- 配置映射器 -->
     <mappers>
         <mapper resource="com/emp/mapper/EmployeeMapper.xml"/>
     </mappers>

@@ -4,6 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 声明命名空间，用于引用该映射器中的 SQL 语句 -->
 <mapper namespace="com.emp.mapper.EmployeeMapper">
+    <!--查询所有员工信息 -->
+    <select id="employeeInfoList" resultType="com.emp.pojo.Employee">
+        select * from employee
+    </select>
     <!--根据ID查询员工信息 -->
     <select id="employeeInfoById" parameterType="int" resultType="com.emp.pojo.Employee">
         select * from employee where id = #{id}
