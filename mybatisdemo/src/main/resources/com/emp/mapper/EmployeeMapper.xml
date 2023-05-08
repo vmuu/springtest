@@ -17,7 +17,7 @@
         insert into employee(id, name, age, position) values(#{id}, #{name}, #{age}, #{position})
     </insert>
     <!--根据ID修改员工信息 -->
-    <update id="updateEmployeeInfoById" parameterType="com.emp.pojo.Employee">
+    <update id="updateEmployeeInfoById" parameterType="com.emp.pojo.Employee" keyProperty="id" useGeneratedKeys="true">
         update employee set name = #{name}, age = #{age}, position = #{position} where id = #{id}
     </update>
     <!--根据ID删除员工信息 -->

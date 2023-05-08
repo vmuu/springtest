@@ -10,4 +10,3 @@ use emp;
 create table employee(id int primary key auto_increment,name varchar(50),age int,position varchar(60));
 -- 一次性插入多条数据
 insert into employee(name,age,position) values('张三',20,'员工'),('李四',18,'员工'),('王五',35,'经理');
-
