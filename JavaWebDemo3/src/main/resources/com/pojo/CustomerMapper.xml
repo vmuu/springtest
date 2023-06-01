@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 定义一个映射器，包含多个SQL操作 -->
+<mapper namespace="com.pojo.CustomerMapper">
+    <!-- 查询所有客户信息 -->
+    <select id="findAll" resultType="Customer">
+        select * from t_customer
+    </select>
+    <!-- 查询所有客户信息使用<if> -->
+    <select id="findCustomerByNameAndJobs" parameterType="Customer" resultType="Customer">
+        select * from t_customer where 1=1
+        <if test="username!=null and username!=''">
+            and username like concat('%',#{username},'%')
+        </if>
+        <if test="jobs!=null and jobs!=''">
+            and jobs like concat('%',#{jobs},'%')
+        </if>
+    </select>
+    <!-- 根据客户的姓名或职业查询客户信息，使用<<choose>><when> -->
+    <select id="findCustomerByNameOrJobs" parameterType="Customer" resultType="Customer">
+        select * from t_customer where 1=1
+        <choose>
+            <when test="username!=null and username!=''">
+                and username like concat('%',#{username},'%')
+            </when>
+            <when test="jobs!=null and jobs!=''">
+                and jobs like concat('%',#{jobs},'%')
+            </when>
+            <otherwise>
+                and phone is not null
+            </otherwise>
+        </choose>
+    </select>
+    <!-- 根据客户的姓名或职业查询客户信息，使用<where><if> -->
+    <select id="findCustomerByNameAndJobsWhere" parameterType="Customer" resultType="Customer">
+        select * from t_customer
+        <where>
+            <if test="username!=null and username!=''">
+                and username like concat('%',#{username},'%')
+            </if>
+            <if test="jobs!=null and jobs!=''">
+                and jobs like concat('%',#{jobs},'%')
+            </if>
+        </where>
+    </select>
+    <!-- 根据客户的姓名或职业查询客户信息，使用<trim><if> -->
+    <select id="findCustomerByNameAndJobsTrim" parameterType="Customer" resultType="Customer">
+        select * from t_customer
+        <trim prefix="where" prefixOverrides="and">
+            <if test="username!=null and username!=''">
+                and username like concat('%',#{username},'%')
+            </if>
+            <if test="jobs!=null and jobs!=''">
+                and jobs like concat('%',#{jobs},'%')
+            </if>
+        </trim>
+    </select>
+    <!-- 使用set动态更新客户信息 -->
+    <update id="updateCustomerBySetTest" parameterType="Customer">
+        update t_customer
+        <set>
+            <if test="username!=null and username!=''">
+                username=#{username},
+            </if>
+            <if test="jobs!=null and jobs!=''">
+                jobs=#{jobs},
+            </if>
+            <if test="phone!=null and phone!=''">
+                phone=#{phone},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+    <!-- 使用trim优化sql语句，动态更新客户信息 -->
+    <update id="updateCustomerTrimTest" parameterType="Customer">
+        update t_customer
+        <trim prefix="set" suffixOverrides=",">
+            <if test="username!=null and username!=''">
+                username=#{username},
+            </if>
+            <if test="jobs!=null and jobs!=''">
+                jobs=#{jobs},
+            </if>
+            <if test="phone!=null and phone!=''">
+                phone=#{phone},
+            </if>
+        </trim>
+    </update>
+    <!-- 通过数组查询客户信息 -->
+    <select id="findByArrayTest" parameterType="int[]" resultType="Customer">
+        select * from t_customer where id in
+        <foreach item="id" open="(" close=")" separator="," collection="array">
+            #{id}
+        </foreach>
+    </select>
+    <!-- 通过List查询客户信息 -->
+    <select id="findByListTest" parameterType="java.util.List" resultType="Customer">
+        select * from t_customer where id in
+        <foreach item="id" open="(" close=")" separator="," collection="list">
+            #{id}
+        </foreach>
+    </select>
+    <!-- 通过Map查询客户信息 -->
+    <select id="findByMapTest" parameterType="java.util.Map" resultType="Customer">
+        select * from t_customer where id in
+        <foreach item="releMap" open="(" close=")" collection="id" separator=",">
+            #{releMap}
+        </foreach>
+    </select>
+</mapper>
