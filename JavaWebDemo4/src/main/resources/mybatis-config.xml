@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <!--加载数据库连接配置文件 -->
+    <properties resource="db.properties"/>
+
+    <settings>
+        <!--打开延迟加载开关-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--将积极加载改为消息加载，即按需加载-->
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+    <!--定义类型处理器，这里将包com.pojo下的所有类注册为类型处理器-->
+    <typeAliases>
+        <package name="com.pojo"/>
+    </typeAliases>
+
+    <!--定义数据库环境，包括事务管理器和数据源 -->
+    <environments default="development">
+        <!--这里定义一个名为development的环境 -->
+        <environment id="development">
+            <!--配置事务管理器，这里采用的是JDBC事务管理器 -->
+            <transactionManager type="JDBC"/>
+            <!--配置数据源，这里采用的是连接池数据源 -->
+            <dataSource type="POOLED">
+                <!--设置数据库驱动，${mysql.driver}是从db.properties文件中读取的属性 -->
+                <property name="driver" value="${mysql.driver}"/>
+                <!--设置数据库连接url，${mysql.url}是从db.properties文件中读取的属性 -->
+                <property name="url" value="${mysql.url}"/>
+                <!--设置数据库连接用户名，${mysql.username}是从db.properties文件中读取的属性 -->
+                <property name="username" value="${mysql.username}"/>
+                <!--设置数据库连接密码，${mysql.password}是从db.properties文件中读取的属性 -->
+                <property name="password" value="${mysql.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--注册映射文件 -->
+    <mappers>
+        <mapper resource="com/mapper/IdCardMapper.xml"/>
+        <mapper resource="com/mapper/PersonMapper.xml"/>
+        <mapper resource="com/mapper/UsersMapper.xml"/>
+        <mapper resource="com/mapper/OrdersMapper.xml"/>
+        <mapper resource="com/mapper/ProductMapper.xml"/>
+        <mapper resource="com/mapper/BookMapper.xml"/>
+<!--        <package name="com.mapper"/>-->
+    </mappers>
+</configuration>

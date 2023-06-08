@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 声明命名空间为 com.mapper.IdCardMapper 的映射器，与对应的 Mapper 接口匹配 -->
+<mapper namespace="com.mapper.IdCardMapper">
+
+    <!-- 定义名为 findCardById 的 SQL 查询语句，它的结果类型是 com.pojo.IdCard，参数类型是 Integer -->
+    <select id="findCardById" resultType="IdCard" parameterType="Integer">
+        <!-- 执行查询的 SQL 语句，这里从 tb_idcard 表中根据 id 获取信息，#{id} 表示参数占位符 -->
+        select * from tb_idcard where id = #{id}
+    </select>
+
+</mapper>
