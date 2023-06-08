@@ -11,4 +11,6 @@
     <update id="updateBook" parameterType="Book">
         update tb_book set bookname=#{bookName},price=#{price},author=#{author} where id=#{id}
     </update>
+    <!--开启当前BookMapper的namesapce下的二级缓存-->
+    <cache></cache>
 </mapper>

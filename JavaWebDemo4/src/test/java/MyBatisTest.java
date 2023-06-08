@@ -101,5 +101,39 @@ public class MyBatisTest {
         System.out.println(findBookById2);
         sqlSession.close();
     }
+    /**
+     * 二级级缓存实例，通过ID查询图书信息
+     */
+    @Test
+    public void findBookByIdTest(){
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+        Object findBookById = sqlSession.selectOne("findBookById", 1);
+        System.out.println(findBookById);
+        sqlSession.close();
+        SqlSession sqlSession1 = MybatisUtils.getSqlSession();
+        Object findBookById1 = sqlSession1.selectOne("findBookById", 1);
+        System.out.println(findBookById1);
+        sqlSession1.close();
+    }
+    /**
+     * 二级级缓存实例，更新后缓存更新
+     */
+    @Test
+    public void findBookByIdTestUpdate(){
+        SqlSession sqlSession1 = MybatisUtils.getSqlSession();
+        SqlSession sqlSession2 = MybatisUtils.getSqlSession();
+        SqlSession sqlSession3 = MybatisUtils.getSqlSession();
+        Book book1 = sqlSession1.selectOne("findBookById", 1);
+        System.out.println(book1);
+        sqlSession1.close();
+        Book book2 = new Book();
+        book2.setId(2);
+        book2.setBookName("Java Web 程序开发进阶");
+        int update = sqlSession2.update("updateBook",book2);
+        System.out.println(update);
+        Book book3 = sqlSession3.selectOne("findBookById", 1);
+        System.out.println(book3);
+        sqlSession3.close();
 
+    }
 }
