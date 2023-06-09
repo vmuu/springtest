@@ -1,3 +1,5 @@
+import com.itheima.dao.PersonMapper;
+import com.itheima.pojo.Person;
 import com.itheima.utils.MybatisUtils;
 import com.itheima.dao.WorkerMapper;
 import com.itheima.pojo.Worker;
@@ -6,7 +8,7 @@ import org.junit.Test;
 
 public class MybatisTest {
     @Test
-    public void findWorkerById(){
+    public void findWorkerByIdTest(){
         SqlSession sqlSession = MybatisUtils.getSqlSession();
         WorkerMapper mapper = sqlSession.getMapper(WorkerMapper.class);
         Worker worker = (Worker) mapper.selecteWorker(1);
@@ -60,6 +62,14 @@ public class MybatisTest {
         WorkerMapper mapper = sqlSession.getMapper(WorkerMapper.class);
         Worker worker = mapper.selectWorkerByIdAndName(1, "张三");
         System.out.println(worker);
+        sqlSession.close();
+    }
+    @Test
+    public void selectPersonByIdTest(){
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+        PersonMapper mapper = sqlSession.getMapper(PersonMapper.class);
+        Person person = mapper.selectPersonById(1);
+        System.out.println(person);
         sqlSession.close();
     }
 
