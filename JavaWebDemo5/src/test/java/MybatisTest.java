@@ -1,5 +1,7 @@
+import com.itheima.dao.OrdersMapper;
 import com.itheima.dao.PersonMapper;
 import com.itheima.dao.UsersMapper;
+import com.itheima.pojo.Orders;
 import com.itheima.pojo.Person;
 import com.itheima.pojo.User;
 import com.itheima.utils.MybatisUtils;
@@ -93,7 +95,7 @@ public class MybatisTest {
         sqlSession.close();
     }
     /**
-     * @Many 一对多关系实例
+     * @Many 一对多关系实例：查询用户信息，关联查询用户下的多个订单信息
      */
     @Test
     public void selectUserByIdTest(){
@@ -101,6 +103,17 @@ public class MybatisTest {
         UsersMapper mapper = sqlSession.getMapper(UsersMapper.class);
         User users = mapper.selectUserByIdTest(1);
         System.out.println(users);
+        sqlSession.close();
+    }
+    /**
+     * @Many 多对多关系实例：查询多订单信息，关联查询订单下的商品信息
+     */
+    @Test
+    public void selectOrdersById(){
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+        OrdersMapper mapper = sqlSession.getMapper(OrdersMapper.class);
+        Orders orders = mapper.selectOerdersById(1);
+        System.out.println(orders);
         sqlSession.close();
     }
 
