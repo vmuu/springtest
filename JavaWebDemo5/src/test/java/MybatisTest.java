@@ -1,5 +1,7 @@
 import com.itheima.dao.PersonMapper;
+import com.itheima.dao.UsersMapper;
 import com.itheima.pojo.Person;
+import com.itheima.pojo.User;
 import com.itheima.utils.MybatisUtils;
 import com.itheima.dao.WorkerMapper;
 import com.itheima.pojo.Worker;
@@ -7,6 +9,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 public class MybatisTest {
+    /**
+     *  @Select 实例
+     */
     @Test
     public void findWorkerByIdTest(){
         SqlSession sqlSession = MybatisUtils.getSqlSession();
@@ -15,6 +20,9 @@ public class MybatisTest {
         System.out.println(worker);
         sqlSession.close();
     }
+    /**
+     *  @Insert 实例
+     */
     @Test
     public void insertWorkerTest(){
         SqlSession sqlSession = MybatisUtils.getSqlSession();
@@ -29,6 +37,9 @@ public class MybatisTest {
         sqlSession.commit();
         sqlSession.close();
     }
+    /**
+     *  @Update 实例
+     */
     @Test
     public void updateWorkerTest(){
         SqlSession sqlSession = MybatisUtils.getSqlSession();
@@ -43,6 +54,9 @@ public class MybatisTest {
         sqlSession.commit();
         sqlSession.close();
     }
+    /**
+     *  @Delete 实例
+     */
     @Test
     public void deleteWorkerTest(){
         SqlSession sqlSession = MybatisUtils.getSqlSession();
@@ -56,6 +70,9 @@ public class MybatisTest {
         sqlSession.commit();
         sqlSession.close();
     }
+    /**
+     * @Param 实例
+     */
     @Test
     public void selectWorkerByIdAndNameTest(){
         SqlSession sqlSession = MybatisUtils.getSqlSession();
@@ -64,12 +81,26 @@ public class MybatisTest {
         System.out.println(worker);
         sqlSession.close();
     }
+    /**
+     * @One 一对一关系实例
+     */
     @Test
     public void selectPersonByIdTest(){
         SqlSession sqlSession = MybatisUtils.getSqlSession();
         PersonMapper mapper = sqlSession.getMapper(PersonMapper.class);
         Person person = mapper.selectPersonById(1);
         System.out.println(person);
+        sqlSession.close();
+    }
+    /**
+     * @Many 一对多关系实例
+     */
+    @Test
+    public void selectUserByIdTest(){
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+        UsersMapper mapper = sqlSession.getMapper(UsersMapper.class);
+        User users = mapper.selectUserByIdTest(1);
+        System.out.println(users);
         sqlSession.close();
     }
 
