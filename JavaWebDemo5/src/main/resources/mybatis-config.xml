@@ -14,9 +14,9 @@
         <setting name="aggressiveLazyLoading" value="false"/>
     </settings>
     <!--定义类型处理器，这里将包com.pojo下的所有类注册为类型处理器-->
-    <typeAliases>
-        <package name="com.itheima"/>
-    </typeAliases>
+<!--    <typeAliases>-->
+<!--        <package name="com.itheima"/>-->
+<!--    </typeAliases>-->
 
     <!--定义数据库环境，包括事务管理器和数据源 -->
     <environments default="development">

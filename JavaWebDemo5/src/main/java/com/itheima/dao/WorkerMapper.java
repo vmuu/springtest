@@ -14,4 +14,5 @@ public interface WorkerMapper {
     int deleteWorker(int id);
     @Select("select * from tb_worker where id=#{id} and name=#{name}")
     Worker selectWorkerByIdAndName(@Param("id") int id,@Param("name") String name);
+
 }
