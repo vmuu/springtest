@@ -8,7 +8,7 @@
         <property name="username" value="Spring"></property>
     </bean>
 
-    <bean id="userDao" class="com.itheima.dao.UserDaoImp"></bean>
+    <bean id="userDao" class="com.itheima.dao.impl.UserDaoImp"></bean>
     <bean id="userService" class="com.itheima.service.impl.UserServiceImp">
         <property name="userDao" ref="userDao"></property>
     </bean>

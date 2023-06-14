@@ -1,6 +1,6 @@
-package com.itheima.dao;
+package com.itheima.dao.impl;
 
-import com.itheima.dao.impl.UserDao;
+import com.itheima.dao.UserDao;
 
 public class UserDaoImp implements UserDao {
 

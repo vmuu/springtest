@@ -1,6 +1,6 @@
 package com.itheima.service.impl;
 
-import com.itheima.dao.impl.UserDao;
+import com.itheima.dao.UserDao;
 import com.itheima.service.UserService;
 
 public class UserServiceImp implements UserService {
