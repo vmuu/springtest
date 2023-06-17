@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stu.mapper.StudentMapper">
+    <!--（1）多条件查询：-->
+    <!-- 1、当用户输入的学生姓名不为空，则只根据学生姓名进行学生信息的查询-->
+    <!-- 2、当用户输入的学生姓名为空，而学生专业不为空时，则只根据学生专业进行学生信息的查询；-->
+    <!-- 3、当用户输入的学生姓名和专业都为空，则要求查询出所有学号不为空的学生信息；-->
+    <select id="selectStuInfoByNameOrMajor"
+            parameterType="Student"
+            resultType="student">
+        select * from student where 1=1
+        <choose>
+            <when test="name !=null and name !=''">
+                and name like concat('%',#{name}, '%')
+            </when>
+            <when test="major !=null and major !=''">
+                and major= #{major}
+            </when>
+            <otherwise>
+                and sno is not null
+            </otherwise>
+        </choose>
+    </select>
+    <!-- 4、根据id删除员工信息。-->
+    <delete id="deleteStuInfoById" parameterType="Integer">
+        delete from student where sno=#{sno}
+    </delete>
+   <!-- （2）查询出所有id值小于5且姓李的学生信息。-->
+    <select id="findByList" parameterType="java.util.List"
+            resultType="Student">
+        select * from student where id in
+        INSERT INTO `student` VALUES (1, '杨明金', '计算机科学与技术', '2022611788');
+        INSERT INTO `student` VALUES (2, '郭怀志', '电子商务', '2022611789');
+        INSERT INTO `student` VALUES (3, '杨坤', '大数据与技术', '2022611780');
+        INSERT INTO `student` VALUES (4, '杨俊成', '人工智能', '2022611781');
+        INSERT INTO `student` VALUES (5, '曾彦儒', '软件工程', '2022611782');
+        INSERT INTO `student` VALUES (6, '艾润', '计算机科学与技术', '2022611790');
+        <foreach item="id" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+    <!-- （3）查询出各门课的学生人数。-->
+    <select id="selectStudentCountByMajor" resultType="map">
+        SELECT major, COUNT(*) AS studentCount
+        FROM student
+        GROUP BY major
+    </select>
+</mapper>
